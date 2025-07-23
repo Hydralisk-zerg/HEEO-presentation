@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Моя Презентация</title>
+    
+    <!-- Reveal.js CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/theme/black.css">
+    
+    <!-- Дополнительные стили -->
+    <style>
+        .reveal .slides section {
+            text-align: left;
+        }
+        .reveal h1, .reveal h2, .reveal h3 {
+            text-align: center;
+        }
+        .qr-code {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .qr-code img {
+            max-width: 200px;
+            border: 3px solid #fff;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Титульный слайд -->
+            <section>
+                <h1>Добро пожаловать!</h1>
+                <h3>Тестовая презентация с reveal.js</h3>
+                <p>
+                    <small>Создано с помощью <a href="https://revealjs.com">reveal.js</a></small>
+                </p>
+            </section>
+
+            <!-- Слайд с содержанием -->
+            <section>
+                <h2>О чем эта презентация</h2>
+                <ul>
+                    <li>Демонстрация возможностей reveal.js</li>
+                    <li>Пример размещения на GitHub Pages</li>
+                    <li>Доступ через QR-код</li>
+                    <li>Красивые переходы между слайдами</li>
+                </ul>
+            </section>
+
+            <!-- Слайд с особенностями -->
+            <section>
+                <h2>Особенности reveal.js</h2>
+                <section>
+                    <h3>Вертикальные слайды</h3>
+                    <p>Этот слайд имеет подслайды. Нажмите стрелку вниз ↓</p>
+                </section>
+                <section>
+                    <h3>Подслайд 1</h3>
+                    <p>Красивые переходы между слайдами</p>
+                </section>
+                <section>
+                    <h3>Подслайд 2</h3>
+                    <p>Поддержка Markdown и HTML</p>
+                </section>
+            </section>
+
+            <!-- Слайд с кодом -->
+            <section>
+                <h2>Пример кода</h2>
+                <pre><code data-trim data-noescape>
+function hello() {
+    console.log("Привет из презентации!");
+}
+
+hello();
+                </code></pre>
+            </section>
+
+            <!-- Слайд с анимацией -->
+            <section>
+                <h2>Анимированный контент</h2>
+                <p class="fragment">Этот текст появится первым</p>
+                <p class="fragment">Этот - вторым</p>
+                <p class="fragment">А этот - третьим</p>
+            </section>
+
+            <!-- QR-код слайд -->
+            <section>
+                <h2>QR-код для доступа</h2>
+                <div class="qr-code">
+                    <p>После размещения на GitHub Pages здесь будет QR-код:</p>
+                    <div style="width: 200px; height: 200px; border: 2px dashed #fff; margin: 0 auto; display: flex; align-items: center; justify-content: center;">
+                        <span>QR-код</span>
+                    </div>
+                </div>
+                <p><small>Отсканируйте код для быстрого доступа к презентации</small></p>
+            </section>
+
+            <!-- Заключительный слайд -->
+            <section>
+                <h1>Спасибо за внимание!</h1>
+                <p>
+                    Презентация создана с помощью reveal.js<br>
+                    и размещена на GitHub Pages
+                </p>
+            </section>
+        </div>
+    </div>
+
+    <!-- Reveal.js JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/plugin/highlight/highlight.js"></script>
+    
+    <script>
+        // Инициализация reveal.js
+        Reveal.initialize({
+            hash: true,
+            controls: true,
+            progress: true,
+            center: true,
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            
+            // Плагины
+            plugins: [ RevealHighlight ]
+        });
+    </script>
+</body>
+</html>

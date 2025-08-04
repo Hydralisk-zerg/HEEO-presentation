@@ -6,7 +6,7 @@
     "start": "npx serve -s dist -l 3000",
     "dev": "webpack serve --mode development",
     "build:local": "webpack --mode production",
-    "build": "cross-env GITHUB_PAGES=true webpack --mode production",
+    "build": "set GITHUB_PAGES=true && node_modules\\.bin\\webpack --mode production",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "serve": "npx serve -s dist -l 3000"

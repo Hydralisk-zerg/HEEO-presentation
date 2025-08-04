@@ -38,7 +38,7 @@ const StartPage = ({ onLanguageSelect, onPresentationStart, onVoiceAssistantStar
         <div style={{ textAlign: 'center', marginBottom: 40 }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 8 }}>
             <img 
-              src="images/a47f8-90.png" 
+              src="/images/a47f8-90.png" 
               alt="Hellmann Logo" 
               style={{ 
                 height: '60px', 

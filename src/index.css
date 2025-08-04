@@ -1,3 +1,72 @@
+.presentation-fullscreen-btn {
+  font-weight: bold !important;
+}
+.presentation-fullscreen {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.presentation-arrow {
+  transition: background 0.2s;
+}
+.presentation-arrow:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.presentation-home-btn {
+  font-weight: bold !important;
+}
+/* Полноэкранная презентация */
+.presentation-fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.presentation-slide-image {
+  width: 100vw;
+  height: 100vh;
+  object-fit: contain;
+  border-radius: 0;
+  box-shadow: none;
+  transition: none;
+  cursor: pointer;
+  background: transparent;
+}
+
+.presentation-home-btn {
+  position: absolute;
+  bottom: 32px;
+  right: 32px;
+  z-index: 10;
+  background: #fff !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .presentation-slide-image {
+    width: 100vw;
+    height: 100vh;
+    max-width: 100vw;
+    max-height: 100vh;
+  }
+  .presentation-home-btn {
+    bottom: 16px;
+    right: 16px;
+    width: 48px !important;
+    height: 48px !important;
+  }
+}
 body {
   margin: 0;
   padding: 0;
@@ -53,53 +122,55 @@ body {
   object-fit: contain;
 }
 
-.navigation-controls {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 16px;
-}
 
-.slide-counter {
-  color: #666;
-  font-size: 14px;
-  margin-left: 16px;
-}
-
-/* Стили для стартовой страницы */
-.start-page-container {
-  min-height: 100vh;
+.presentation-fullscreen {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  overflow: hidden;
 }
 
-.start-page-card {
-  max-width: 800px;
-  width: 100%;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+.presentation-slide-image {
+  max-width: 100vw;
+  max-height: 100vh;
+  object-fit: contain;
+  margin: auto;
+  display: block;
+  border-radius: 0;
+  box-shadow: none;
+  transition: none;
+  cursor: pointer;
+  background: transparent;
 }
 
-/* Стили для карточек функций */
-.feature-card {
-  height: 100%;
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+.presentation-home-btn {
+  position: absolute;
+  bottom: 32px;
+  right: 32px;
+  z-index: 10;
+  background: #fff !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.feature-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
-}
-
-.feature-icon {
-  font-size: 48px;
-  margin-bottom: 16px;
+@media (max-width: 768px) {
+  .presentation-slide-image {
+    max-width: 100vw;
+    max-height: 100vh;
+  }
+  .presentation-home-btn {
+    bottom: 16px;
+    right: 16px;
+    width: 48px !important;
+    height: 48px !important;
+  }
 }
 
 .feature-icon.language {

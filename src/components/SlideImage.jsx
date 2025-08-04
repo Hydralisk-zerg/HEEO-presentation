@@ -13,7 +13,6 @@ const SlideImage = ({ slide, onClick, title }) => {
       style={isLogo ? {
         background: 'white',
         padding: '40px',
-        maxHeight: '70vh',
         maxWidth: '80%',
         objectFit: 'contain',
         borderRadius: '12px',

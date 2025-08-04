@@ -2,13 +2,14 @@
   "name": "heeo-presentation-react",
   "version": "1.0.0",
   "description": "HEEO 2025 презентация на React с Ant Design",
+  "homepage": "https://hydralisk-zerg.github.io/HEEO-presentation",
   "scripts": {
     "start": "npx serve -s dist -l 3000",
     "dev": "webpack serve --mode development",
     "build:local": "webpack --mode production",
-    "build": "set GITHUB_PAGES=true && node_modules\\.bin\\webpack --mode production",
+    "build": "cross-env GITHUB_PAGES=true webpack --mode production",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
+    "deploy": "npm run build && cd dist && git init && git add . && git commit -m \"Deploy to GitHub Pages\" && git branch -M gh-pages && git remote add origin https://github.com/Hydralisk-zerg/HEEO-presentation.git && git push -f origin gh-pages && cd .. && Remove-Item -Recurse -Force \"dist\\.git\"",
     "serve": "npx serve -s dist -l 3000"
   },
   "dependencies": {

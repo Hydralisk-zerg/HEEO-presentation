@@ -1,21 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { Button, Progress, Layout, Typography, Space, message } from 'antd';
-import { 
-  LeftOutlined, 
-  RightOutlined, 
-  HomeOutlined,
-  FullscreenOutlined,
-  FullscreenExitOutlined,
-  ArrowLeftOutlined
-} from '@ant-design/icons';
+import React from 'react';
+import { Button } from 'antd';
+import { HomeOutlined, FullscreenOutlined, FullscreenExitOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
+import { useState, useEffect } from 'react';
 
-const { Header, Content, Footer } = Layout;
-const { Title } = Typography;
-
-// Массив всех слайдов
 const getImagePath = (filename) => {
-  const basePath = process.env.NODE_ENV === 'production' && process.env.GITHUB_PAGES ? '/HEEO-presentation' : '';
-  return `${basePath}/images/${filename}`;
+  if (process.env.NODE_ENV === 'production') {
+    return `/HEEO-presentation/images/${filename}`;
+  }
+  return `/images/${filename}`;
 };
 
 const slides = [
@@ -41,67 +33,24 @@ const slides = [
   { id: 20, src: getImagePath('HEEO 2025 -20.jpg'), alt: 'Слайд 20' },
 ];
 
-const PresentationPage = ({ onBack, t }) => {
+const PresentationPage = ({ onBack }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isFullscreen, setIsFullscreen] = useState(false);
 
-  // Обработка клавиатуры
   useEffect(() => {
     const handleKeyPress = (event) => {
-      switch (event.key) {
-        case 'ArrowLeft':
-        case 'ArrowUp':
-          goToPreviousSlide();
-          break;
-        case 'ArrowRight':
-        case 'ArrowDown':
-        case ' ':
-          goToNextSlide();
-          break;
-        case 'Home':
-          setCurrentSlide(0);
-          break;
-        case 'End':
-          setCurrentSlide(slides.length - 1);
-          break;
-        case 'f':
-        case 'F11':
-          event.preventDefault();
-          toggleFullscreen();
-          break;
-        case 'Escape':
-          if (isFullscreen) {
-            toggleFullscreen();
-          }
-          break;
+      if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+        setCurrentSlide((prev) => Math.max(prev - 1, 0));
+      } else if (event.key === 'ArrowRight' || event.key === 'ArrowDown' || event.key === ' ') {
+        setCurrentSlide((prev) => Math.min(prev + 1, slides.length - 1));
       }
     };
-
     document.addEventListener('keydown', handleKeyPress);
     return () => document.removeEventListener('keydown', handleKeyPress);
-  }, [isFullscreen]);
+  }, []);
 
-  const goToNextSlide = () => {
-    if (currentSlide < slides.length - 1) {
-      setCurrentSlide(currentSlide + 1);
-    } else {
-      message.info(t.lastSlide);
-    }
-  };
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
-  const goToPreviousSlide = () => {
-    if (currentSlide > 0) {
-      setCurrentSlide(currentSlide - 1);
-    } else {
-      message.info(t.firstSlide);
-    }
-  };
-
-  const goToFirstSlide = () => {
-    setCurrentSlide(0);
-  };
-
-  const toggleFullscreen = () => {
+  const handleFullscreen = () => {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen();
       setIsFullscreen(true);
@@ -111,106 +60,78 @@ const PresentationPage = ({ onBack, t }) => {
     }
   };
 
-  const progressPercent = ((currentSlide + 1) / slides.length) * 100;
-
   return (
-    <Layout className="presentation-container">
-      <Header style={{ 
-        background: 'rgba(255, 255, 255, 0.95)', 
-        backdropFilter: 'blur(10px)',
-        display: 'flex', 
-        alignItems: 'center', 
-        justifyContent: 'space-between',
-        padding: '0 24px'
-      }}>
-        <Space>
-          <Button 
-            icon={<ArrowLeftOutlined />} 
-            onClick={onBack}
-            title={t.back}
-          >
-            {t.back}
-          </Button>
-          <Title level={3} style={{ margin: 0, color: '#1890ff' }}>
-            {t.title}
-          </Title>
-        </Space>
-        <Space>
-          <Button 
-            icon={<HomeOutlined />} 
-            onClick={goToFirstSlide}
-            title={`${t.home} (Home)`}
-          >
-            {t.home}
-          </Button>
-          <Button 
-            icon={isFullscreen ? <FullscreenExitOutlined /> : <FullscreenOutlined />}
-            onClick={toggleFullscreen}
-            title={`${t.fullscreen} (F)`}
-          >
-            {isFullscreen ? t.exit : t.fullscreen}
-          </Button>
-        </Space>
-      </Header>
+    <div className="presentation-fullscreen" style={{ paddingTop: 10, paddingBottom: 10, position: 'relative', width: '100vw', height: '100vh', boxSizing: 'border-box' }}>
+      {/* Фулскрин кнопка */}
+      <button
+        className="presentation-fullscreen-btn"
+        style={{ position: 'absolute', right: 32, top: 32, zIndex: 20, fontSize: 28, background: '#fff', border: 'none', borderRadius: '50%', boxShadow: '0 4px 16px rgba(0,0,0,0.15)', fontWeight: 'bold', cursor: 'pointer', width: 64, height: 64, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+        onClick={handleFullscreen}
+        title={isFullscreen ? 'Выйти из полного экрана' : 'Полный экран'}
+      >
+        {isFullscreen ? <FullscreenExitOutlined style={{ fontSize: 48, fontWeight: 'bold' }} /> : <FullscreenOutlined style={{ fontSize: 48, fontWeight: 'bold' }} />}
+      </button>
 
-      <Content className="slide-container">
-        <img 
-          src={slides[currentSlide].src} 
+      {/* Левая галочка */}
+      <button
+        className="presentation-arrow presentation-arrow-left"
+        style={{ position: 'absolute', left: 32, top: '50%', transform: 'translateY(-50%)', zIndex: 10, fontSize: 48, background: '#fff', border: 'none', borderRadius: '50%', boxShadow: '0 4px 16px rgba(0,0,0,0.15)', fontWeight: 'bold', cursor: 'pointer', width: 64, height: 64, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+        onClick={() => setCurrentSlide(Math.max(currentSlide - 1, 0))}
+        disabled={currentSlide === 0}
+        aria-label="Предыдущий слайд"
+      >
+        <LeftOutlined style={{ fontSize: 48, fontWeight: 'bold', margin: 'auto' }} />
+      </button>
+
+      <div style={{ height: 'calc(100vh - 20px)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <img
+          src={slides[currentSlide].src}
           alt={slides[currentSlide].alt}
-          className="slide-image"
-          onClick={goToNextSlide}
-          title={t.next}
+          className="presentation-slide-image"
+          style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain' }}
+          onClick={() => setCurrentSlide(Math.min(currentSlide + 1, slides.length - 1))}
         />
-      </Content>
+      </div>
 
-      <Footer className="navigation-controls">
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Space>
-            <Button 
-              icon={<LeftOutlined />} 
-              onClick={goToPreviousSlide}
-              disabled={currentSlide === 0}
-              title={`${t.previous} (← или ↑)`}
-            >
-              {t.back}
-            </Button>
-            <Button 
-              type="primary"
-              icon={<RightOutlined />} 
-              onClick={goToNextSlide}
-              disabled={currentSlide === slides.length - 1}
-              title={`${t.next} (→, ↓ или пробел)`}
-            >
-              {t.next}
-            </Button>
-          </Space>
-          
-          <div style={{ flex: 1, margin: '0 24px' }}>
-            <Progress 
-              percent={progressPercent} 
-              showInfo={false}
-              strokeColor={{
-                '0%': '#108ee9',
-                '100%': '#87d068',
-              }}
-            />
-          </div>
-          
-          <span className="slide-counter">
-            {currentSlide + 1} {t.slideCounter} {slides.length}
-          </span>
-        </div>
-        
-        <div style={{ 
-          textAlign: 'center', 
-          marginTop: '8px', 
-          fontSize: '12px', 
-          color: '#999' 
-        }}>
-          {t.navigation}
-        </div>
-      </Footer>
-    </Layout>
+      {/* Домик */}
+      <button
+        className="presentation-home-btn"
+        style={{ position: 'absolute', right: 32, bottom: 32, zIndex: 10, fontSize: 28, background: '#fff', border: 'none', borderRadius: '50%', boxShadow: '0 4px 16px rgba(0,0,0,0.15)', fontWeight: 'bold', cursor: 'pointer', width: 64, height: 64, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+        onClick={onBack}
+        title="Домой"
+      >
+        <HomeOutlined style={{ fontSize: 48, fontWeight: 'bold' }} />
+      </button>
+
+      {/* Правая галочка */}
+      <button
+        className="presentation-arrow presentation-arrow-right"
+        style={{
+          position: 'absolute',
+          right: 32,
+          top: '50%',
+          transform: 'translateY(-50%)',
+          zIndex: 10,
+          fontSize: 48,
+          background: '#fff',
+          border: 'none',
+          borderRadius: '50%',
+          boxShadow: '0 4px 16px rgba(0,0,0,0.15)',
+          fontWeight: 'bold',
+          cursor: 'pointer',
+          width: 64,
+          height: 64,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+        onClick={() => setCurrentSlide(Math.min(currentSlide + 1, slides.length - 1))}
+        disabled={currentSlide === slides.length - 1}
+        aria-label="Следующий слайд"
+      >
+        <RightOutlined style={{ fontSize: 48, fontWeight: 'bold', margin: 'auto' }} />
+      </button>
+    </div>
   );
 };
 

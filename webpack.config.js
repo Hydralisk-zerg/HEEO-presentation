@@ -7,13 +7,15 @@ module.exports = (env, argv) => {
   const isProduction = argv.mode === 'production';
   const isGithubPages = process.env.GITHUB_PAGES === 'true';
   
+  console.log('GITHUB_PAGES:', process.env.GITHUB_PAGES); // debug
+
   return {
     entry: './src/main.jsx',
     output: {
       path: path.resolve(__dirname, 'dist'),
-      filename: 'assets/[name].[contenthash].js',
+      filename: 'main.[contenthash].js',
       clean: true,
-      publicPath: isGithubPages ? '/HEEO-presentation/' : '/'
+      publicPath: '/HEEO-presentation/'
     },
   module: {
     rules: [

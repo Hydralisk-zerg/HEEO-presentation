@@ -2,13 +2,13 @@
   "name": "heeo-presentation-react",
   "version": "1.0.0",
   "description": "HEEO 2025 презентация на React с Ant Design",
-  "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
+    "start": "serve -s dist -l 3000",
+    "dev": "webpack serve --mode development",
+    "build": "webpack --mode production",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "install-serve": "npm install -g serve"
   },
   "dependencies": {
     "react": "^18.2.0",

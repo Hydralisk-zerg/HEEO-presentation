@@ -3,7 +3,6 @@ import { ConfigProvider, Spin } from 'antd';
 import { translations } from './utils/translations';
 import StartPage from './pages/StartPage';
 import PresentationPage from './pages/PresentationPage';
-import VoiceAssistantPage from './pages/VoiceAssistantPage';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('start');
@@ -12,8 +11,12 @@ function App() {
   
   useEffect(() => {
     const savedLanguage = localStorage.getItem('selectedLanguage');
-    if (savedLanguage && translations[savedLanguage]) {
+    if (savedLanguage && savedLanguage !== 'ru' && translations[savedLanguage]) {
       setLanguage(savedLanguage);
+    } else {
+      // Если сохранен русский язык или нет сохраненного языка, устанавливаем украинский
+      setLanguage('uk');
+      localStorage.setItem('selectedLanguage', 'uk');
     }
   }, []);
 
@@ -33,11 +36,8 @@ function App() {
   };
 
   const handleVoiceAssistantStart = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setCurrentPage('voice');
-      setLoading(false);
-    }, 500);
+    // Сразу переходим к Telegram боту @Iris_log_bot
+    window.open('https://t.me/Iris_log_bot', '_blank');
   };
 
   const handleBackToStart = () => {
@@ -84,13 +84,7 @@ function App() {
         return (
           <PresentationPage 
             onBack={handleBackToStart}
-            t={t}
-          />
-        );
-      case 'voice':
-        return (
-          <VoiceAssistantPage 
-            onBack={handleBackToStart}
+            language={language}
             t={t}
           />
         );

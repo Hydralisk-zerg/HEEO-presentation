@@ -1,147 +1,34 @@
-import React, { useState, useEffect } from 'react';
-import { Card, Button, Typography, Space, message, Alert } from 'antd';
-import { 
-  SoundOutlined, 
-  ArrowLeftOutlined,
-  AudioOutlined,
-  StopOutlined
-} from '@ant-design/icons';
+import React, { useState } from 'react';
+import { Card, Button, Typography, Space, Alert, Modal } from 'antd';
+import { ArrowLeftOutlined, SoundOutlined } from '@ant-design/icons';
 
-const { Title, Paragraph } = Typography;
+const { Title } = Typography;
 
 const VoiceAssistantPage = ({ onBack, t }) => {
-  const [isListening, setIsListening] = useState(false);
-  const [recognition, setRecognition] = useState(null);
-  const [transcript, setTranscript] = useState('');
-  const [isSupported, setIsSupported] = useState(false);
+  const [showTelegramModal, setShowTelegramModal] = useState(false);
 
-  useEffect(() => {
-    // Проверяем поддержку Web Speech API
-    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      const recognitionInstance = new SpeechRecognition();
-      
-      recognitionInstance.continuous = true;
-      recognitionInstance.interimResults = true;
-      recognitionInstance.lang = getCurrentLanguage();
-
-      recognitionInstance.onresult = (event) => {
-        let finalTranscript = '';
-        
-        for (let i = event.resultIndex; i < event.results.length; i++) {
-          const transcript = event.results[i][0].transcript;
-          if (event.results[i].isFinal) {
-            finalTranscript += transcript;
-          }
-        }
-        
-        if (finalTranscript) {
-          setTranscript(finalTranscript);
-          processVoiceCommand(finalTranscript.toLowerCase());
-        }
-      };
-
-      recognitionInstance.onstart = () => {
-        setIsListening(true);
-      };
-
-      recognitionInstance.onend = () => {
-        setIsListening(false);
-      };
-
-      recognitionInstance.onerror = (event) => {
-        console.error('Speech recognition error:', event.error);
-        message.error('Ошибка распознавания речи: ' + event.error);
-        setIsListening(false);
-      };
-
-      setRecognition(recognitionInstance);
-      setIsSupported(true);
-    } else {
-      setIsSupported(false);
+  const getLogoPath = () => {
+    const timestamp = Date.now(); // Cache busting
+    if (process.env.NODE_ENV === 'production') {
+      return `/HEEO-presentation/images/logo_assistant.jpg?v=${timestamp}`;
     }
-  }, []);
-
-  const getCurrentLanguage = () => {
-    // Возвращаем код языка для распознавания речи
-    const langMap = {
-      'uk': 'uk-UA',
-      'en': 'en-US', 
-      'ru': 'ru-RU'
-    };
-    return langMap[localStorage.getItem('selectedLanguage')] || 'ru-RU';
+    return `/images/logo_assistant.jpg?v=${timestamp}`;
   };
 
-  const processVoiceCommand = (command) => {
-    // Обработка голосовых команд
-    const commands = {
-      'презентация': () => message.success('Команда: Открыть презентацию'),
-      'presentation': () => message.success('Command: Open presentation'),
-      'презентація': () => message.success('Команда: Відкрити презентацію'),
-      'слайд': () => message.success('Команда: Переход к слайду'),
-      'slide': () => message.success('Command: Go to slide'),
-      'начало': () => message.success('Команда: К началу'),
-      'home': () => message.success('Command: Go home'),
-      'додому': () => message.success('Команда: На початок'),
-      'помощь': () => message.info('Доступные команды: презентация, слайд, начало, помощь'),
-      'help': () => message.info('Available commands: presentation, slide, home, help'),
-      'допомога': () => message.info('Доступні команди: презентація, слайд, додому, допомога')
-    };
-
-    // Ищем совпадения в команде
-    for (const [keyword, action] of Object.entries(commands)) {
-      if (command.includes(keyword)) {
-        action();
-        return;
-      }
-    }
-    
-    message.warning('Команда не распознана: ' + command);
+  const handleLogoClick = () => {
+    setShowTelegramModal(true);
   };
 
-  const startListening = () => {
-    if (recognition && !isListening) {
-      recognition.start();
-    }
+  const handleTelegramYes = () => {
+    setShowTelegramModal(false);
+    // Открываем Telegram бот с токеном 1919338656:AAEtvQyoaNBo5mBy9mA4AOR5eHU8LfnuEq0
+    window.open('https://t.me/Hellmann_LLC_bot', '_blank');
   };
 
-  const stopListening = () => {
-    if (recognition && isListening) {
-      recognition.stop();
-    }
+  const handleTelegramNo = () => {
+    setShowTelegramModal(false);
+    // Остаемся на странице AI помощника
   };
-
-  if (!isSupported) {
-    return (
-      <div style={{ 
-        minHeight: '100vh',
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '20px'
-      }}>
-        <Card style={{ maxWidth: 600, width: '100%' }}>
-          <Space direction="vertical" style={{ width: '100%' }}>
-            <Button 
-              icon={<ArrowLeftOutlined />} 
-              onClick={onBack}
-              style={{ marginBottom: 20 }}
-            >
-              {t.back}
-            </Button>
-            
-            <Alert
-              message={t.voiceNotSupported}
-              description="Попробуйте использовать современный браузер, такой как Chrome или Edge."
-              type="warning"
-              showIcon
-            />
-          </Space>
-        </Card>
-      </div>
-    );
-  }
 
   return (
     <div style={{ 
@@ -150,11 +37,11 @@ const VoiceAssistantPage = ({ onBack, t }) => {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      padding: '20px'
+      padding: window.innerWidth <= 768 ? '10px' : '20px'
     }}>
       <Card
         style={{
-          maxWidth: 600,
+          maxWidth: window.innerWidth <= 768 ? '100%' : 600,
           width: '100%',
           background: 'rgba(255, 255, 255, 0.95)',
           backdropFilter: 'blur(10px)',
@@ -172,54 +59,116 @@ const VoiceAssistantPage = ({ onBack, t }) => {
           </Button>
           
           <div style={{ textAlign: 'center' }}>
-            <SoundOutlined style={{ fontSize: 64, color: '#fa8c16', marginBottom: 24 }} />
-            <Title level={2}>{t.voiceAssistant}</Title>
+            {/* Логотип AI помощника */}
+            <div 
+              onClick={handleLogoClick}
+              style={{ 
+                cursor: 'pointer',
+                marginBottom: 24,
+                display: 'inline-block',
+                borderRadius: '50%',
+                overflow: 'hidden',
+                border: '3px solid #fa8c16',
+                transition: 'all 0.3s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.transform = 'scale(1.05)';
+                e.target.style.boxShadow = '0 4px 20px rgba(250, 140, 22, 0.4)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.transform = 'scale(1)';
+                e.target.style.boxShadow = 'none';
+              }}
+            >
+              <img 
+                src={getLogoPath()}
+                alt="AI Assistant Logo"
+                style={{
+                  width: window.innerWidth <= 768 ? 100 : 150,
+                  height: window.innerWidth <= 768 ? 100 : 150,
+                  objectFit: 'cover',
+                  display: 'block'
+                }}
+              />
+            </div>
+
+            {/* Иконка звука
+            <SoundOutlined style={{ 
+              fontSize: window.innerWidth <= 768 ? 32 : 48, 
+              color: '#fa8c16', 
+              marginBottom: 16 
+            }} />
+             */}
+            {/* <Title level={window.innerWidth <= 768 ? 3 : 2}>
+              {t.voiceAssistant}
+            </Title> */}
             
-            <div style={{ 
-              padding: 20, 
-              background: '#f0f0f0', 
-              borderRadius: 8, 
-              marginBottom: 24,
-              minHeight: 80,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}>
-              {isListening ? (
-                <Paragraph style={{ margin: 0, color: '#1890ff' }}>
-                  {t.listening}
-                </Paragraph>
-              ) : (
-                <Paragraph style={{ margin: 0, color: '#666' }}>
-                  {transcript || t.speak}
-                </Paragraph>
-              )}
-            </div>
-
-            <Space size="large">
-              <Button
-                type={isListening ? "danger" : "primary"}
-                size="large"
-                icon={isListening ? <StopOutlined /> : <AudioOutlined />}
-                onClick={isListening ? stopListening : startListening}
-                style={{ minWidth: 120 }}
-              >
-                {isListening ? 'Стоп' : t.speak}
-              </Button>
-            </Space>
-
-            <div style={{ marginTop: 24, textAlign: 'left' }}>
-              <Title level={4}>Доступные команды:</Title>
-              <ul style={{ color: '#666' }}>
-                <li>"Презентация" - открыть презентацию</li>
-                <li>"Слайд [номер]" - перейти к слайду</li>
-                <li>"Начало" - к первому слайду</li>
-                <li>"Помощь" - список команд</li>
-              </ul>
-            </div>
+            <Alert
+              message={t.comingSoon}
+              type="warning"
+              showIcon
+              style={{ 
+                marginTop: 20,
+                fontSize: window.innerWidth <= 768 ? '14px' : '16px',
+                background: '#fffbe6',
+                border: '1px solid #ffe58f',
+                color: '#d48806'
+              }}
+            />
           </div>
         </Space>
       </Card>
+
+      {/* Модальное окно для подключения к Telegram боту */}
+      <Modal
+        title={t.connectToTelegram || "Подключиться к AI Telegram боту?"}
+        open={showTelegramModal}
+        onCancel={handleTelegramNo}
+        footer={
+          <div style={{ 
+            display: 'flex', 
+            justifyContent: 'center', 
+            gap: '16px',
+            padding: '0 24px'
+          }}>
+            <Button 
+              key="no" 
+              onClick={handleTelegramNo}
+              style={{ 
+                width: '33%',
+                minWidth: '100px'
+              }}
+            >
+              {t.no || "Нет"}
+            </Button>
+            <Button 
+              key="yes" 
+              type="primary" 
+              onClick={handleTelegramYes}
+              style={{ 
+                width: '33%',
+                minWidth: '100px'
+              }}
+            >
+              {t.yes || "Да"}
+            </Button>
+          </div>
+        }
+        centered
+        style={{ textAlign: 'center' }}
+      >
+        <div style={{ padding: '20px 0' }}>
+          <p style={{ fontSize: '16px', marginBottom: '16px' }}>
+            {t.telegramBotDescription || 
+              "Хотите подключиться к нашему AI помощнику в Telegram для получения персонализированной поддержки?"}
+          </p>
+          <div style={{ fontSize: '48px', marginBottom: '16px' }}>🤖</div>
+          <p style={{ color: '#666', fontSize: '14px' }}>
+            {t.telegramBotNote || 
+              "Примечание: Бот находится в стадии разработки"}
+          </p>
+        </div>
+      </Modal>
     </div>
   );
 };

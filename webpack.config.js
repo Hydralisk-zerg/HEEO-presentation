@@ -15,7 +15,7 @@ module.exports = (env, argv) => {
       path: path.resolve(__dirname, 'dist'),
       filename: 'main.[contenthash].js',
       clean: true,
-      publicPath: '/HEEO-presentation/'
+      publicPath: isGithubPages ? '/HEEO-presentation/' : '/'
     },
   module: {
     rules: [

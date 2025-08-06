@@ -10,6 +10,17 @@
 			],
 			"group": "build",
 			"isBackground": false
+		},
+		{
+			"label": "Запуск dev сервера",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"start"
+			],
+			"group": "build",
+			"isBackground": true,
+			"problemMatcher": []
 		}
 	]
 }

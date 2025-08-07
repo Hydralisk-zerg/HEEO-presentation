@@ -11,7 +11,10 @@ export const slideConfig = [
       uk: "",
       en: ""
     },
-    imagePath: "/images/first_page.jpg",
+    image: {
+      uk: "/images/first_page.jpg",
+      en: "/images/first_page.jpg"
+    }
   },
   {
     id: 2,
@@ -38,7 +41,10 @@ export const slideConfig = [
 10 743              employees 
 all over the world`
     },
-    imagePath: "/images/Our Network.jpg",
+    image: {
+      uk: "/images/Our Network.jpg",
+      en: "/images/Our Network.jpg"
+    },
     textStyles: {
       // Стили для выделения чисел
       numbers: {
@@ -48,24 +54,31 @@ all over the world`
       },
       // Позиции чисел в тексте (какие слова выделить)
       highlightWords: ['150', '64 789', '263', '10 743']
-    }
-  }
-  ,
+    },
+
+  },
+  // Пример слайда только для английского:
   // {
   //   id: 3,
-  //   type: 3, // Тип 3: 25% текст слева + 75% изображение справа
-  //   title: "Инновации в логистике",
-  //   text: "Современные цифровые технологии позволяют нам отслеживать грузы в режиме реального времени, оптимизировать маршруты и обеспечивать прозрачность всех логистических процессов. Мы инвестируем в развитие устойчивых и экологичных решений.",
-  //   imagePath: "/images/en/HEEO 2025 -10.jpg"
-  // }
+  //   type: 3,
+  //   title: { en: "Innovation in Logistics" },
+  //   text: { en: "Modern digital technologies allow us to track shipments in real time, optimize routes and ensure transparency of all logistics processes. We invest in sustainable and green solutions." },
+  //   imagePath: "/images/en/HEEO 2025 -10.jpg",
+  // },
 ];
+
 
 // Функция для получения локализованного контента
 export const getLocalizedSlide = (slide, language = 'uk') => {
+  // если слайд не предназначен для этого языка — не возвращаем
+  if (slide.languages && !slide.languages.includes(language)) return null;
   return {
     ...slide,
     title: typeof slide.title === 'object' ? slide.title[language] || slide.title.uk : slide.title,
-    text: typeof slide.text === 'object' ? slide.text[language] || slide.text.uk : slide.text
+    text: typeof slide.text === 'object' ? slide.text[language] || slide.text.uk : slide.text,
+    image: slide.image && typeof slide.image === 'object'
+      ? slide.image[language] || slide.image.uk || slide.image.en
+      : slide.image
   };
 };
 

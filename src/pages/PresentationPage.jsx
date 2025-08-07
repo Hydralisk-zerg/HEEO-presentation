@@ -92,14 +92,14 @@ const PresentationPage = ({ onBack, t }) => {
           height: '100vh'
         }}
       >
-        {slideConfig.map(slide => {
-          const localizedSlide = getLocalizedSlide(slide, currentLanguage); // используем текущий язык
-          return (
-            <div key={slide.id}>
+        {slideConfig
+          .map(slide => getLocalizedSlide(slide, currentLanguage))
+          .filter(Boolean)
+          .map(localizedSlide => (
+            <div key={localizedSlide.id}>
               <SlideTemplate slide={localizedSlide} t={t} />
             </div>
-          );
-        })}
+          ))}
       </Carousel>
 
       {/* Кастомные стрелки навигации */}

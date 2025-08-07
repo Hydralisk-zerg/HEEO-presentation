@@ -132,20 +132,20 @@ const SlideTemplate = ({ slide, t }) => {
             paddingLeft: window.innerWidth <= 1024 ? '5px' : '20px',
             paddingRight: window.innerWidth <= 1024 ? '5px' : '20px',
             paddingBottom: window.innerWidth <= 1024 ? '5px' : '20px',
-            paddingTop: (window.innerWidth <= 1024 && window.innerHeight > window.innerWidth) ? '0px' : (window.innerWidth <= 1024 ? '10px' : '20px'), // уточненная логика для paddingTop
+            paddingTop: (window.innerWidth <= 1024 && window.innerHeight > window.innerWidth) ? '0px' : (window.innerWidth <= 1024 ? '10px' : '20px'),
             overflow: 'hidden'
           }}>
             <div style={{ 
-              width: '95%', // четкая фиксированная ширина
+              width: '95%',
               height: window.innerWidth <= 1024 ? 
-                ((window.innerHeight > window.innerWidth) ? '60vh' : '80vh') : '70vh', // увеличена высота для горизонтального с 50vh до 80vh
-              overflow: 'hidden', // обрезаем все что не влезает
-              borderRadius: window.innerWidth <= 1024 ? '8px' : '12px', // уменьшаем радиус на мобильных
+                ((window.innerHeight > window.innerWidth) ? '60vh' : '80vh') : '70vh',
+              overflow: 'hidden',
+              borderRadius: window.innerWidth <= 1024 ? '8px' : '12px',
               position: 'relative'
             }}>
-              {slide.imagePath?.endsWith('.pdf') ? (
+              {slide.image?.endsWith('.pdf') ? (
                 <iframe
-                  src={slide.imagePath}
+                  src={slide.image}
                   style={{ 
                     width: '100%',
                     height: '100%',
@@ -156,12 +156,12 @@ const SlideTemplate = ({ slide, t }) => {
                 />
               ) : (
                 <Image
-                  src={slide.imagePath}
+                  src={slide.image}
                   alt={slide.title}
                   style={{ 
                     width: '100%',
                     height: '100%',
-                    objectFit: 'cover', // подрезаем что не влезает
+                    objectFit: 'cover',
                     borderRadius: window.innerWidth <= 1024 ? '8px' : '10px'
                   }}
                   preview={false}
@@ -227,9 +227,9 @@ const SlideTemplate = ({ slide, t }) => {
                     : '0',
               }}
             >
-              {slide.imagePath?.endsWith('.pdf') ? (
+              {slide.image?.endsWith('.pdf') ? (
                 <iframe
-                  src={slide.imagePath}
+                  src={slide.image}
                   style={{
                     width: '100%',
                     height: '100%',
@@ -240,7 +240,7 @@ const SlideTemplate = ({ slide, t }) => {
                 />
               ) : (
                 <Image
-                  src={slide.imagePath}
+                  src={slide.image}
                   alt={slide.title}
                   style={{
                     width: '100%',
@@ -384,9 +384,9 @@ const SlideTemplate = ({ slide, t }) => {
               flexShrink: 0,
               marginBottom: (window.innerWidth <= 1024 && window.innerHeight > window.innerWidth) ? '-15px' : '0' // уменьшаем отступ между картинкой и текстом
             }}>
-              {slide.imagePath?.endsWith('.pdf') ? (
+              {slide.image?.endsWith('.pdf') ? (
                 <iframe
-                  src={slide.imagePath}
+                  src={slide.image}
                   style={{ 
                     width: '100%',
                     height: '100%',
@@ -397,7 +397,55 @@ const SlideTemplate = ({ slide, t }) => {
                 />
               ) : (
                 <Image
-                  src={slide.imagePath}
+                  src={slide.image}
+                  alt={slide.title}
+                  style={{ 
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    borderRadius: window.innerWidth <= 1024 ? '6px' : '12px'
+                  }}
+                  preview={false}
+                />
+              )}
+              {slide.image?.endsWith('.pdf') ? (
+                <iframe
+                  src={slide.image}
+                  style={{ 
+                    width: '100%',
+                    height: '100%',
+                    border: 'none',
+                    borderRadius: window.innerWidth <= 1024 ? '6px' : '12px'
+                  }}
+                  title={slide.title}
+                />
+              ) : (
+                <Image
+                  src={slide.image}
+                  alt={slide.title}
+                  style={{ 
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    borderRadius: window.innerWidth <= 1024 ? '6px' : '12px'
+                  }}
+                  preview={false}
+                />
+              )}
+              {slide.image?.endsWith('.pdf') ? (
+                <iframe
+                  src={slide.image}
+                  style={{ 
+                    width: '100%',
+                    height: '100%',
+                    border: 'none',
+                    borderRadius: window.innerWidth <= 1024 ? '6px' : '12px'
+                  }}
+                  title={slide.title}
+                />
+              ) : (
+                <Image
+                  src={slide.image}
                   alt={slide.title}
                   style={{ 
                     width: '100%',

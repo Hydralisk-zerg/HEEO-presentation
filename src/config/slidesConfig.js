@@ -89,6 +89,72 @@ all over the world`
       en: "/images/Our services – Air Freight.jpg"
     }
   },
+    {
+    id: 5,
+    type: 1, // Тип 1: Только заголовок + изображение
+    title: {
+      uk: "Наші послуги – Морські перевезення",
+      en: "Our services – Sea Freight"
+    },
+    text: {
+      uk: "",
+      en: ""
+    },
+    image: {
+      uk: "/images/Our services – Sea Freight.jpg",
+      en: "/images/Our services – Sea Freight.jpg"
+    }
+  },
+  {
+    id: 6,
+    type: 2, // Тип 2: 75% изображение слева + 25% текст справа
+    title: {
+      uk: "Наші послуги – Автомобільні перевезення",
+      en: "Our services – Road Freight"
+    },
+    text: {
+      uk: `
+      Регулярні FTL перевезення
+
+      Перевезення контейнерів
+
+      Вантажі з температурним контролем
+
+      Негабаритні вантажі
+
+      Небезпечні вантажі
+
+
+
+      Маємо 380 активних партнерів із загальним 
+      13 000 одиниць`,
+      en: `Regular FTL shipments
+
+      Shipments of containers
+
+      Temperature control cargoes
+
+      Oversized cargoes
+
+      Dangerous goods
+
+We have 380 active partners with total fleet of 13 000 units`
+    },
+    image: {
+      uk: "/images/Our services – Road Freight.jpg",
+      en: "/images/Our services – Road Freight.jpg"
+    },
+    textStyles: {
+      // Стили для выделения чисел
+      numbers: {
+        color: '#FF6B35', // оранжевый цвет для чисел
+        fontWeight: 'bold',
+        fontSize: '1.2em' // на 20% больше базового размера
+      },
+      // Позиции чисел в тексте (какие слова выделить)
+      highlightWords: ['380', '13 000']
+    },
+  },
   // Пример слайда только для английского:
   // {
   //   id: 3,

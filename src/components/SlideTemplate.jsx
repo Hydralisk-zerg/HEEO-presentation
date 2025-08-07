@@ -215,6 +215,10 @@ const SlideTemplate = ({ slide, t }) => {
         );
 
       case 2: // 60% изображение слева + 30% текст справа + 10% для кнопок (5% слева + 5% справа)
+        // Вычисляем ширину текстового блока для шаблона 2
+        const textBlockWidth = window.innerWidth > 1024
+          ? '28%'
+          : (window.innerHeight > window.innerWidth ? '95%' : '33.33%');
         return (
           <div
             style={{
@@ -222,7 +226,7 @@ const SlideTemplate = ({ slide, t }) => {
               height: '100%',
               padding: window.innerWidth <= 1024
                 ? ((window.innerHeight > window.innerWidth) ? '0px' : '5px')
-                : '0', // убираем padding для десктопа, мобильный оставляем
+                : '0',
               overflow: 'hidden',
               gap: window.innerWidth <= 1024 ? '8px' : '0',
               flexDirection:
@@ -239,8 +243,6 @@ const SlideTemplate = ({ slide, t }) => {
                   : 'flex-start',
             }}
           >
-            {/* 5% отступ слева (только десктоп) */}
-            {window.innerWidth > 1024 && <div style={{ width: '5%' }} />}
             {/* Изображение для 2 шаблона */}
             <div
               style={{
@@ -249,13 +251,14 @@ const SlideTemplate = ({ slide, t }) => {
                     ? window.innerHeight > window.innerWidth
                       ? '95%'
                       : '66.67%'
-                    : '60%', // десктоп: 60%
+                    : '70%',
                 height:
                   window.innerWidth <= 1024
                     ? window.innerHeight > window.innerWidth
                       ? 'calc(50vh - 60px)'
                       : '90%'
-                    : '70vh',
+                    : '105%',
+                maxHeight: window.innerWidth > 1024 ? '100%' : undefined,
                 overflow: 'hidden',
                 borderRadius: window.innerWidth <= 1024 ? '6px' : '12px',
                 position: 'relative',
@@ -268,6 +271,13 @@ const SlideTemplate = ({ slide, t }) => {
                   window.innerWidth <= 1024 && window.innerHeight > window.innerWidth
                     ? '5px'
                     : '0',
+                marginLeft: window.innerWidth > 1024 ? '-25px' : '0',
+                display: 'flex',
+                alignItems: 'flex-start', // прижать вверх
+                justifyContent: 'flex-start', // прижать влево
+                background: '#fff',
+                boxSizing: 'border-box',
+                padding: 0,
               }}
             >
               {slide.image?.endsWith('.pdf') ? (
@@ -287,26 +297,24 @@ const SlideTemplate = ({ slide, t }) => {
                   alt={slide.title}
                   className="slide-image-auto-fit"
                   style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: imageObjectFit,
+                    maxWidth: '100%',
+                    maxHeight: '100%',
+                    width: 'auto',
+                    height: 'auto',
+                    objectFit: 'contain',
                     borderRadius: window.innerWidth <= 1024 ? '6px' : '12px',
                     background: '#fff',
-                    display: 'block'
+                    display: 'block',
+                    margin: '0 auto',
                   }}
                   draggable={false}
                 />
               )}
             </div>
-            {/* Текст для 2 шаблона */}
+            {/* Текстовый блок для 2 шаблона */}
             <div
               style={{
-                width:
-                  window.innerWidth <= 1024
-                    ? window.innerHeight > window.innerWidth
-                      ? '95%'
-                      : '33.33%'
-                    : '30%', // десктоп: 30%
+                width: textBlockWidth,
                 flex:
                   window.innerWidth <= 1024
                     ? window.innerHeight > window.innerWidth
@@ -343,7 +351,7 @@ const SlideTemplate = ({ slide, t }) => {
                       ? '18px'
                       : window.innerWidth <= 1024 && window.innerHeight <= window.innerWidth
                       ? '16px'
-                      : '20px', // десктоп: 20px (на 2px больше)
+                      : '20px',
                   lineHeight:
                     window.innerWidth <= 1024 && window.innerHeight > window.innerWidth
                       ? '1.5'
@@ -352,7 +360,7 @@ const SlideTemplate = ({ slide, t }) => {
                       : '1.5',
                   color: '#004C99',
                   margin: 0,
-                  fontWeight: window.innerWidth > 1024 ? 'bold' : '600', // десктоп: bold
+                  fontWeight: window.innerWidth > 1024 ? 'bold' : '600',
                   textAlign:
                     window.innerWidth <= 1024 && window.innerHeight > window.innerWidth
                       ? 'center'

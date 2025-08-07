@@ -11,7 +11,7 @@ export const slideConfig = [
       uk: "",
       en: ""
     },
-    imagePath: "/images/first_page.png"
+    imagePath: "/images/first_page.jpg",
   },
   {
     id: 2,
@@ -38,7 +38,7 @@ export const slideConfig = [
 10 743              employees 
 all over the world`
     },
-    imagePath: "/images/Our Network.png",
+    imagePath: "/images/Our Network.jpg",
     textStyles: {
       // Стили для выделения чисел
       numbers: {

@@ -173,43 +173,68 @@ const SlideTemplate = ({ slide, t }) => {
 
       case 2: // 60% изображение слева + 30% текст справа + 10% для кнопок (5% слева + 5% справа)
         return (
-          <div style={{ 
-            display: 'flex',
-            height: '100%',
-            padding: window.innerWidth <= 1024 ? 
-              ((window.innerHeight > window.innerWidth) ? '0px' : '5px') : '20px', // убираем padding для портретного режима
-            overflow: 'hidden',
-            gap: window.innerWidth <= 1024 ? '8px' : '30px',
-            flexDirection: (window.innerWidth <= 1024 && window.innerHeight > window.innerWidth) ? 'column' : 'row',
-            // Добавляем отступы для кнопок в горизонтальном мобильном режиме
-            marginLeft: (window.innerWidth <= 1024 && window.innerHeight <= window.innerWidth) ? '5%' : '0',
-            marginRight: (window.innerWidth <= 1024 && window.innerHeight <= window.innerWidth) ? '5%' : '0',
-            // Убираем центрирование для портретного режима
-            alignItems: (window.innerWidth <= 1024 && window.innerHeight > window.innerWidth) ? 'stretch' : 'flex-start',
-            justifyContent: (window.innerWidth <= 1024 && window.innerHeight > window.innerWidth) ? 'space-between' : 'flex-start'
-          }}>
-            {/* Изображение для 2 шаблона */}
-            <div style={{ 
-              width: window.innerWidth <= 1024 ? 
-                ((window.innerHeight > window.innerWidth) ? '95%' : '66.67%') : // увеличиваем ширину для портретного режима
-                '75%', // десктоп: 75%
-              height: window.innerWidth <= 1024 ? 
-                ((window.innerHeight > window.innerWidth) ? 'calc(50vh - 60px)' : '90%') : '70vh', // увеличиваем высоту для горизонтального мобильного
+          <div
+            style={{
+              display: 'flex',
+              height: '100%',
+              padding: window.innerWidth <= 1024
+                ? ((window.innerHeight > window.innerWidth) ? '0px' : '5px')
+                : '0', // убираем padding для десктопа, мобильный оставляем
               overflow: 'hidden',
-              borderRadius: window.innerWidth <= 1024 ? '6px' : '12px',
-              position: 'relative',
-              flexShrink: 0,
-              order: (window.innerWidth <= 1024 && window.innerHeight > window.innerWidth) ? '1' : '1', // изображение сверху
-              marginBottom: (window.innerWidth <= 1024 && window.innerHeight > window.innerWidth) ? '5px' : '0' // отступ между картинкой и текстом
-            }}>
+              gap: window.innerWidth <= 1024 ? '8px' : '0',
+              flexDirection:
+                window.innerWidth <= 1024 && window.innerHeight > window.innerWidth
+                  ? 'column'
+                  : 'row',
+              alignItems:
+                window.innerWidth <= 1024 && window.innerHeight > window.innerWidth
+                  ? 'stretch'
+                  : 'flex-start',
+              justifyContent:
+                window.innerWidth <= 1024 && window.innerHeight > window.innerWidth
+                  ? 'space-between'
+                  : 'flex-start',
+            }}
+          >
+            {/* 5% отступ слева (только десктоп) */}
+            {window.innerWidth > 1024 && <div style={{ width: '5%' }} />}
+            {/* Изображение для 2 шаблона */}
+            <div
+              style={{
+                width:
+                  window.innerWidth <= 1024
+                    ? window.innerHeight > window.innerWidth
+                      ? '95%'
+                      : '66.67%'
+                    : '60%', // десктоп: 60%
+                height:
+                  window.innerWidth <= 1024
+                    ? window.innerHeight > window.innerWidth
+                      ? 'calc(50vh - 60px)'
+                      : '90%'
+                    : '70vh',
+                overflow: 'hidden',
+                borderRadius: window.innerWidth <= 1024 ? '6px' : '12px',
+                position: 'relative',
+                flexShrink: 0,
+                order:
+                  window.innerWidth <= 1024 && window.innerHeight > window.innerWidth
+                    ? '1'
+                    : '1',
+                marginBottom:
+                  window.innerWidth <= 1024 && window.innerHeight > window.innerWidth
+                    ? '5px'
+                    : '0',
+              }}
+            >
               {slide.imagePath?.endsWith('.pdf') ? (
                 <iframe
                   src={slide.imagePath}
-                  style={{ 
+                  style={{
                     width: '100%',
                     height: '100%',
                     border: 'none',
-                    borderRadius: window.innerWidth <= 1024 ? '6px' : '12px'
+                    borderRadius: window.innerWidth <= 1024 ? '6px' : '12px',
                   }}
                   title={slide.title}
                 />
@@ -217,48 +242,82 @@ const SlideTemplate = ({ slide, t }) => {
                 <Image
                   src={slide.imagePath}
                   alt={slide.title}
-                  style={{ 
+                  style={{
                     width: '100%',
                     height: '100%',
                     objectFit: 'cover',
-                    borderRadius: window.innerWidth <= 1024 ? '6px' : '12px'
+                    borderRadius: window.innerWidth <= 1024 ? '6px' : '12px',
                   }}
                   preview={false}
                 />
               )}
             </div>
             {/* Текст для 2 шаблона */}
-            <div style={{ 
-              width: window.innerWidth <= 1024 ? 
-                ((window.innerHeight > window.innerWidth) ? '95%' : '33.33%') : // увеличиваем ширину для портретного режима
-                '25%', // десктоп: 25%
-              flex: window.innerWidth <= 1024 ? 
-                ((window.innerHeight > window.innerWidth) ? 'none' : '1') : 'none', // убираем flex для портретного
-              height: window.innerWidth <= 1024 && window.innerHeight > window.innerWidth ? 'calc(50vh - 55px)' : 'auto', // высота от кнопок вниз
-              display: 'flex',
-              alignItems: 'flex-start',
-              justifyContent: 'center', // центрируем текст
-              padding: window.innerWidth <= 1024 ? 
-                ((window.innerHeight > window.innerWidth) ? '5px 5px' : '5px 10px') : // отступ от кнопок
-                '20px 0',
-              order: (window.innerWidth <= 1024 && window.innerHeight > window.innerWidth) ? '2' : '2', // текст снизу
-              marginTop: (window.innerWidth <= 1024 && window.innerHeight > window.innerWidth) ? '5px' : '0' // отступ от кнопок
-            }}>
-              <Paragraph 
-                style={{ 
-                  fontSize: (window.innerWidth <= 1024 && window.innerHeight > window.innerWidth) ? '18px' : 
-                           (window.innerWidth <= 1024 && window.innerHeight <= window.innerWidth) ? '16px' : '18px', // увеличен горизонтальный с 14px до 16px (+2px)
-                  lineHeight: (window.innerWidth <= 1024 && window.innerHeight > window.innerWidth) ? '1.5' : 
-                             (window.innerWidth <= 1024 && window.innerHeight <= window.innerWidth) ? '1.2' : '1.5',
+            <div
+              style={{
+                width:
+                  window.innerWidth <= 1024
+                    ? window.innerHeight > window.innerWidth
+                      ? '95%'
+                      : '33.33%'
+                    : '30%', // десктоп: 30%
+                flex:
+                  window.innerWidth <= 1024
+                    ? window.innerHeight > window.innerWidth
+                      ? 'none'
+                      : '1'
+                    : 'none',
+                height:
+                  window.innerWidth <= 1024 && window.innerHeight > window.innerWidth
+                    ? 'calc(50vh - 55px)'
+                    : 'auto',
+                display: 'flex',
+                alignItems: 'flex-start',
+                justifyContent: 'center',
+                padding:
+                  window.innerWidth <= 1024
+                    ? window.innerHeight > window.innerWidth
+                      ? '5px 5px'
+                      : '5px 10px'
+                    : '20px 0',
+                order:
+                  window.innerWidth <= 1024 && window.innerHeight > window.innerWidth
+                    ? '2'
+                    : '2',
+                marginTop:
+                  window.innerWidth <= 1024 && window.innerHeight > window.innerWidth
+                    ? '5px'
+                    : '0',
+              }}
+            >
+              <Paragraph
+                style={{
+                  fontSize:
+                    window.innerWidth <= 1024 && window.innerHeight > window.innerWidth
+                      ? '18px'
+                      : window.innerWidth <= 1024 && window.innerHeight <= window.innerWidth
+                      ? '16px'
+                      : '20px', // десктоп: 20px (на 2px больше)
+                  lineHeight:
+                    window.innerWidth <= 1024 && window.innerHeight > window.innerWidth
+                      ? '1.5'
+                      : window.innerWidth <= 1024 && window.innerHeight <= window.innerWidth
+                      ? '1.2'
+                      : '1.5',
                   color: '#004C99',
                   margin: 0,
-                  fontWeight: '600',
-                  textAlign: (window.innerWidth <= 1024 && window.innerHeight > window.innerWidth) ? 'center' : 'left' // центрируем текст для портретного
+                  fontWeight: window.innerWidth > 1024 ? 'bold' : '600', // десктоп: bold
+                  textAlign:
+                    window.innerWidth <= 1024 && window.innerHeight > window.innerWidth
+                      ? 'center'
+                      : 'left',
                 }}
               >
                 {renderFormattedText(slide.text, slide.textStyles)}
               </Paragraph>
             </div>
+            {/* 5% отступ справа (только десктоп) */}
+            {window.innerWidth > 1024 && <div style={{ width: '5%' }} />}
           </div>
         );
 
@@ -399,22 +458,39 @@ const SlideTemplate = ({ slide, t }) => {
       </div>
 
       {/* Заголовок на уровне логотипа */}
-      <div style={{
-      position: 'absolute',
-      top: isMobile ? (isPortrait ? '42px' : '2px') : '30px', // опущен на 40px для вертикального режима (2px + 40px = 42px)
-      left: isMobile ? '2px' : '30px',
-      right: isMobile ? '75px' : '510px',
-      zIndex: 101
-    }}>
-        <Title 
+      <div
+        style={{
+          position: 'absolute',
+          top: isMobile ? (isPortrait ? '42px' : '2px') : '30px',
+          left: isMobile ? '2px' : 'calc(30px + 10px)', // увеличиваем отступ слева на десктопе
+          right: isMobile ? '75px' : 'calc(510px + 10px)', // увеличиваем отступ справа на десктопе
+          zIndex: 101,
+          width: isMobile ? 'auto' : 'calc(100% - 540px)', // ширина с учетом логотипа и отступов
+          display: 'flex',
+          justifyContent: isMobile ? 'center' : 'center',
+          alignItems: 'center',
+          pointerEvents: 'none', // чтобы не мешать кликам
+        }}
+      >
+        <Title
           level={1}
-          style={{ 
-            color: '#004C99', 
+          style={{
+            color: '#004C99',
             margin: 0,
-            textAlign: (isMobile && isPortrait) ? 'center' : (isMobile && !isPortrait ? 'center' : 'left'),
-            fontSize: (isMobile && isPortrait) ? '20px' : (isMobile ? '17px' : '32px'), // увеличен горизонтальный мобильный с 15px до 17px (+2px)
+            textAlign: 'center',
+            fontSize: (isMobile && isPortrait) ? '20px' : (isMobile ? '17px' : '32px'),
             fontWeight: '600',
-            lineHeight: (isMobile && isPortrait) ? '1.4' : (isMobile ? '1.2' : '1.4')
+            lineHeight: (isMobile && isPortrait) ? '1.4' : (isMobile ? '1.2' : '1.4'),
+            wordBreak: 'break-word',
+            whiteSpace: 'pre-line',
+            paddingLeft: isMobile ? 0 : 10,
+            paddingRight: isMobile ? 0 : 10,
+            maxWidth: isMobile ? '100%' : '100%',
+            overflowWrap: 'break-word',
+            // Для шаблонов 1,2,3 на десктопе — центрируем
+            ...(window.innerWidth > 1024 && [1,2,3].includes(slide.type)
+              ? { textAlign: 'center', justifyContent: 'center', alignItems: 'center', display: 'flex', width: '100%' }
+              : {})
           }}
         >
           {slide.title}

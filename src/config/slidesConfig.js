@@ -53,9 +53,41 @@ all over the world`
         fontSize: '1.2em' // на 20% больше базового размера
       },
       // Позиции чисел в тексте (какие слова выделить)
-      highlightWords: ['150', '64 789', '263', '10 743']
+      highlightWords: ['150', '64 789', '263', '56', '10 743']
     },
 
+  },
+  {
+    id: 3,
+    type: 1, // Тип 1: Только заголовок + изображение
+    title: {
+      uk: "Наші продукти",
+      en: "Our products"
+    },
+    text: {
+      uk: "",
+      en: ""
+    },
+    image: {
+      uk: "/images/our products.jpg",
+      en: "/images/our products.jpg"
+    }
+  },
+    {
+    id: 4,
+    type: 1, // Тип 1: Только заголовок + изображение
+    title: {
+      uk: "Наші послуги – Авіаперевезення",
+      en: "Our services – Air Freight"
+    },
+    text: {
+      uk: "",
+      en: ""
+    },
+    image: {
+      uk: "/images/наши послуги авіаперевезення.jpg",
+      en: "/images/Our services – Air Freight.jpg"
+    }
   },
   // Пример слайда только для английского:
   // {

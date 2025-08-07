@@ -4,6 +4,37 @@ import { Typography, Image } from 'antd';
 const { Title, Paragraph } = Typography;
 
 const SlideTemplate = ({ slide, t }) => {
+  // Хук для хранения objectFit для картинок
+  const [imageObjectFit, setImageObjectFit] = useState('cover');
+
+  // Функция для проверки, помещается ли изображение в контейнер
+  const checkImageFit = (img, container) => {
+    if (!img || !container) return 'cover';
+    // Если хотя бы одна сторона изображения больше контейнера — используем contain
+    if (img.naturalWidth > container.clientWidth || img.naturalHeight > container.clientHeight) {
+      return 'contain';
+    }
+    return 'cover';
+  };
+
+  // Эффект для установки objectFit после загрузки изображения
+  useEffect(() => {
+    // Для каждого изображения на слайде
+    const imgs = document.querySelectorAll('.slide-image-auto-fit');
+    imgs.forEach(img => {
+      img.onload = () => {
+        const container = img.parentElement;
+        const fit = checkImageFit(img, container);
+        setImageObjectFit(fit);
+      };
+      // Если уже загружено
+      if (img.complete) {
+        const container = img.parentElement;
+        const fit = checkImageFit(img, container);
+        setImageObjectFit(fit);
+      }
+    });
+  }, [slide.image, isMobile, isPortrait]);
   // Функция для выделения специальных слов в тексте
   const renderFormattedText = (text, textStyles) => {
     if (!textStyles || !textStyles.highlightWords) {
@@ -123,9 +154,9 @@ const SlideTemplate = ({ slide, t }) => {
     switch (slide.type) {
       case 1: // Только заголовок + изображение
         return (
-          <div style={{ 
-            display: 'flex', 
-            flexDirection: 'column', 
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
             height: '100%',
@@ -133,38 +164,50 @@ const SlideTemplate = ({ slide, t }) => {
             paddingRight: window.innerWidth <= 1024 ? '5px' : '20px',
             paddingBottom: window.innerWidth <= 1024 ? '5px' : '20px',
             paddingTop: (window.innerWidth <= 1024 && window.innerHeight > window.innerWidth) ? '0px' : (window.innerWidth <= 1024 ? '10px' : '20px'),
-            overflow: 'hidden'
+            overflow: 'hidden',
           }}>
-            <div style={{ 
-              width: '95%',
-              height: window.innerWidth <= 1024 ? 
-                ((window.innerHeight > window.innerWidth) ? '60vh' : '80vh') : '70vh',
+            <div style={{
+              width: '100%',
+              height: window.innerWidth <= 1024 ?
+                ((window.innerHeight > window.innerWidth) ? '60vh' : '80vh') : '100%',
+              minHeight: 0,
+              minWidth: 0,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
               overflow: 'hidden',
               borderRadius: window.innerWidth <= 1024 ? '8px' : '12px',
-              position: 'relative'
+              position: 'relative',
+              background: '#fff',
             }}>
               {slide.image?.endsWith('.pdf') ? (
                 <iframe
                   src={slide.image}
-                  style={{ 
+                  style={{
                     width: '100%',
                     height: '100%',
                     border: 'none',
-                    borderRadius: window.innerWidth <= 1024 ? '8px' : '10px'
+                    borderRadius: window.innerWidth <= 1024 ? '8px' : '10px',
                   }}
                   title={slide.title}
                 />
               ) : (
-                <Image
+                <img
                   src={slide.image}
                   alt={slide.title}
-                  style={{ 
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    borderRadius: window.innerWidth <= 1024 ? '8px' : '10px'
+                  className="slide-image-auto-fit"
+                  style={{
+                    maxWidth: window.innerWidth > 1024 ? '90vw' : '100%',
+                    maxHeight: window.innerWidth > 1024 ? '70vh' : '100%',
+                    width: 'auto',
+                    height: 'auto',
+                    objectFit: 'contain',
+                    borderRadius: window.innerWidth <= 1024 ? '8px' : '10px',
+                    background: '#fff',
+                    display: 'block',
+                    margin: '0 auto',
                   }}
-                  preview={false}
+                  draggable={false}
                 />
               )}
             </div>
@@ -239,16 +282,19 @@ const SlideTemplate = ({ slide, t }) => {
                   title={slide.title}
                 />
               ) : (
-                <Image
+                <img
                   src={slide.image}
                   alt={slide.title}
+                  className="slide-image-auto-fit"
                   style={{
                     width: '100%',
                     height: '100%',
-                    objectFit: 'cover',
+                    objectFit: imageObjectFit,
                     borderRadius: window.innerWidth <= 1024 ? '6px' : '12px',
+                    background: '#fff',
+                    display: 'block'
                   }}
-                  preview={false}
+                  draggable={false}
                 />
               )}
             </div>
@@ -396,16 +442,46 @@ const SlideTemplate = ({ slide, t }) => {
                   title={slide.title}
                 />
               ) : (
-                <Image
+                <img
                   src={slide.image}
                   alt={slide.title}
+                  className="slide-image-auto-fit"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: imageObjectFit,
+                    borderRadius: window.innerWidth <= 1024 ? '6px' : '12px',
+                    background: '#fff',
+                    display: 'block'
+                  }}
+                  draggable={false}
+                />
+              )}
+              {slide.image?.endsWith('.pdf') ? (
+                <iframe
+                  src={slide.image}
                   style={{ 
                     width: '100%',
                     height: '100%',
-                    objectFit: 'cover',
+                    border: 'none',
                     borderRadius: window.innerWidth <= 1024 ? '6px' : '12px'
                   }}
-                  preview={false}
+                  title={slide.title}
+                />
+              ) : (
+                <img
+                  src={slide.image}
+                  alt={slide.title}
+                  className="slide-image-auto-fit"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: imageObjectFit,
+                    borderRadius: window.innerWidth <= 1024 ? '6px' : '12px',
+                    background: '#fff',
+                    display: 'block'
+                  }}
+                  draggable={false}
                 />
               )}
               {slide.image?.endsWith('.pdf') ? (
@@ -426,32 +502,9 @@ const SlideTemplate = ({ slide, t }) => {
                   style={{ 
                     width: '100%',
                     height: '100%',
-                    objectFit: 'cover',
-                    borderRadius: window.innerWidth <= 1024 ? '6px' : '12px'
-                  }}
-                  preview={false}
-                />
-              )}
-              {slide.image?.endsWith('.pdf') ? (
-                <iframe
-                  src={slide.image}
-                  style={{ 
-                    width: '100%',
-                    height: '100%',
-                    border: 'none',
-                    borderRadius: window.innerWidth <= 1024 ? '6px' : '12px'
-                  }}
-                  title={slide.title}
-                />
-              ) : (
-                <Image
-                  src={slide.image}
-                  alt={slide.title}
-                  style={{ 
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    borderRadius: window.innerWidth <= 1024 ? '6px' : '12px'
+                    objectFit: 'contain',
+                    borderRadius: window.innerWidth <= 1024 ? '6px' : '12px',
+                    background: '#fff'
                   }}
                   preview={false}
                 />
@@ -527,7 +580,7 @@ const SlideTemplate = ({ slide, t }) => {
             margin: 0,
             textAlign: 'center',
             fontSize: (isMobile && isPortrait) ? '20px' : (isMobile ? '17px' : '32px'),
-            fontWeight: '600',
+            fontWeight: ([1,2,3].includes(slide.type) ? 'bold' : '600'),
             lineHeight: (isMobile && isPortrait) ? '1.4' : (isMobile ? '1.2' : '1.4'),
             wordBreak: 'break-word',
             whiteSpace: 'pre-line',

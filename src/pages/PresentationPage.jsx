@@ -67,8 +67,8 @@ const PresentationPage = ({ onBack, t }) => {
           top: isLandscapeMobile ? '-2px' : (window.innerWidth <= 1024 ? '0px' : '15px'),
           left: isLandscapeMobile ? '-2px' : (window.innerWidth <= 1024 ? '0px' : '15px'),
           zIndex: 1000,
-          width: '35px',
-          height: '35px',
+          width: '45px',
+          height: '45px',
           background: 'rgba(255, 255, 255, 0.95)',
           border: '2px solid #1890ff',
           boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
@@ -136,7 +136,7 @@ const PresentationPage = ({ onBack, t }) => {
           position: 'absolute',
           right: isLandscapeMobile ? '-5px' : 
                  (window.innerWidth <= 1024 && window.innerHeight > window.innerWidth) ? '-5px' : // портретный мобильный - прижать к краю
-                 (window.innerWidth <= 1024 ? '20px' : '45px'),
+                 (window.innerWidth <= 1024 ? '20px' : '25px'), // десктоп: сдвигаем на 10px правее
           top: '50%',
           transform: 'translateY(-50%)',
           zIndex: 1000,

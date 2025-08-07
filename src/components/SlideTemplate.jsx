@@ -129,8 +129,10 @@ const SlideTemplate = ({ slide, t }) => {
             alignItems: 'center',
             justifyContent: 'center',
             height: '100%',
-            padding: window.innerWidth <= 1024 ? '5px' : '20px', // уменьшен padding для вертикального режима
-            paddingTop: (window.innerWidth <= 1024 && window.innerHeight > window.innerWidth) ? '0px' : '10px', // убираем верхний отступ для вертикального
+            paddingLeft: window.innerWidth <= 1024 ? '5px' : '20px',
+            paddingRight: window.innerWidth <= 1024 ? '5px' : '20px',
+            paddingBottom: window.innerWidth <= 1024 ? '5px' : '20px',
+            paddingTop: (window.innerWidth <= 1024 && window.innerHeight > window.innerWidth) ? '0px' : (window.innerWidth <= 1024 ? '10px' : '20px'), // уточненная логика для paddingTop
             overflow: 'hidden'
           }}>
             <div style={{ 
@@ -360,7 +362,7 @@ const SlideTemplate = ({ slide, t }) => {
     <div style={{
       height: isMobile ? '100vh' : 'calc(100vh - 60px)',
       background: '#fff',
-      margin: isMobile ? '2px' : '30px',
+      margin: isMobile ? '2px' : '35px 35px 35px 35px',
       borderRadius: isMobile ? '8px' : '16px',
       boxSizing: 'border-box',
       position: 'relative',
@@ -368,7 +370,7 @@ const SlideTemplate = ({ slide, t }) => {
       flexDirection: 'column',
       boxShadow: isMobile ? '0 1px 6px rgba(0,0,0,0.08)' : '0 8px 32px rgba(0,0,0,0.12)',
       padding: isMobile ? '2px' : '10px',
-      maxWidth: isMobile ? '100vw' : '95vw', // увеличено для полного экрана
+      maxWidth: isMobile ? '100vw' : 'calc(100% - 75px)',
       width: '100%',
       minHeight: isMobile ? '220px' : 'auto',
     }}>

@@ -155,6 +155,102 @@ We have 380 active partners with total fleet of 13 000 units`
       highlightWords: ['380', '13 000']
     },
   },
+  {
+    id: 7,
+    type: 1, // Тип 1: Только заголовок + изображение
+    title: {
+      uk: "Наші послуги – перевезення небезпечних вантажів, IM0 2, 3, 4, 6, 8, 9.",
+      en: "Our services – shipments of dangerous goods, IM0 2,3,4,6,8,9."
+    },
+    text: {
+      uk: "",
+      en: ""
+    },
+    image: {
+      uk: "/images/Our services – shipments of dangerous goods, IM0 2,3,4,6,8,9..jpg",
+      en: "/images/Our services – shipments of dangerous goods, IM0 2,3,4,6,8,9..jpg"
+    }
+  },
+  {
+    id: 8,
+    type: 1, // Тип 1: Только заголовок + изображение
+    title: {
+      uk: "Наші послуги – Перевантаження: контейнер – вантажівка/вантажівка – контейнер у європейських морських портах",
+      en: "Our services – transshipment: container – truck/truck – container in European seaports."
+    },
+    text: {
+      uk: "",
+      en: ""
+    },
+    image: {
+      uk: "/images/Our services – transshipment.jpg",
+      en: "/images/Our services – transshipment.jpg"
+    }
+  },
+  {
+    id: 9,
+    type: 1, // Тип 1: Только заголовок + изображение
+    title: {
+      uk: "Наші послуги – експорт зерна, цукру, соняшникової олії у флекси-танках",
+      en: " Our services – export of grains, sugar, sunflower oil in flexy tanks."
+    },
+    text: {
+      uk: "",
+      en: ""
+    },
+    image: {
+      uk: "/images/Our services – export of grains, sugar, sunflower oil in flexy tanks.jpg",
+      en: "/images/Our services – export of grains, sugar, sunflower oil in flexy tanks.jpg"
+    }
+  },
+  {
+    id: 10,
+    type: 1, // Тип 1: Только заголовок + изображение
+    title: {
+      uk: "Наше портфоліо – реалізація проектів – портовий силос COFCO, 2017",
+      en: "Our portfolio – project delivery - COFCO port silo, 2017."
+    },
+    text: {
+      uk: "",
+      en: ""
+    },
+    image: {
+      uk: "/images/Our portfolio – project delivery - COFCO port silo, 2017.jpg",
+      en: "/images/Our portfolio – project delivery - COFCO port silo, 2017.jpg"
+    }
+  },
+  {
+    id: 11,
+    type: 1, // Тип 1: Только заголовок + изображение
+    title: {
+      uk: "Наше портфоліо - складські послуги для Nordex 2020-2021",
+      en: "Our portfolio - warehousing service for Nordex 2020-2021"
+    },
+    text: {
+      uk: "",
+      en: ""
+    },
+    image: {
+      uk: "/images/Our portfolio - warehousing service for Nordex 2020-2021.jpg",
+      en: "/images/Our portfolio - warehousing service for Nordex 2020-2021.jpg"
+    }
+  },
+  {
+    id: 11,
+    type: 1, // Тип 1: Только заголовок + изображение
+    title: {
+      uk: "Наше портфоліо – Поставка на завод Interstarch – 2018",
+      en: "Our portfolio – Interstarch factory delivery - 2018"
+    },
+    text: {
+      uk: "",
+      en: ""
+    },
+    image: {
+      uk: "/images/Our portfolio – Interstarch factory delivery - 2018.jpg",
+      en: "/images/Our portfolio – Interstarch factory delivery - 2018.jpg"
+    }
+  },
   // Пример слайда только для английского:
   // {
   //   id: 3,

@@ -230,3 +230,72 @@ body {
     font-size: 10px;
   }
 }
+
+/* Стили для карусели TestPage - максимальная специфичность */
+div.ant-carousel .ant-carousel-prev,
+div.ant-carousel .ant-carousel-next {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-radius: 50% !important;
+  width: 80px !important;
+  height: 80px !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4) !important;
+  z-index: 100 !important;
+  border: 3px solid #1890ff !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+div.ant-carousel .ant-carousel-prev::before,
+div.ant-carousel .ant-carousel-next::before {
+  font-size: 32px !important;
+  color: #1890ff !important;
+  font-weight: bold !important;
+}
+
+div.ant-carousel .ant-carousel-prev:hover,
+div.ant-carousel .ant-carousel-next:hover {
+  background: #1890ff !important;
+  transform: scale(1.1) !important;
+  transition: all 0.3s ease !important;
+}
+
+div.ant-carousel .ant-carousel-prev:hover::before,
+div.ant-carousel .ant-carousel-next:hover::before {
+  color: white !important;
+}
+
+div.ant-carousel .ant-carousel-prev {
+  left: 30px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+}
+
+div.ant-carousel .ant-carousel-next {
+  right: 30px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+}
+
+@media (max-width: 768px) {
+  div.ant-carousel .ant-carousel-prev,
+  div.ant-carousel .ant-carousel-next {
+    width: 60px !important;
+    height: 60px !important;
+  }
+  
+  div.ant-carousel .ant-carousel-prev::before,
+  div.ant-carousel .ant-carousel-next::before {
+    font-size: 24px !important;
+  }
+  
+  div.ant-carousel .ant-carousel-prev {
+    left: 20px !important;
+  }
+  
+  div.ant-carousel .ant-carousel-next {
+    right: 20px !important;
+  }
+}

@@ -15,7 +15,7 @@ module.exports = (env, argv) => {
       path: path.resolve(__dirname, 'dist'),
       filename: 'main.[contenthash].js',
       clean: true,
-      publicPath: isGithubPages ? '/HEEO-presentation/' : '/'
+      publicPath: isProduction ? (isGithubPages ? '/HEEO-presentation/' : '/') : '/'
     },
   module: {
     rules: [
@@ -60,7 +60,7 @@ module.exports = (env, argv) => {
     static: {
       directory: path.join(__dirname, 'dist')
     },
-    port: 3000,
+    port: 3001,
     open: true,
     hot: true,
     historyApiFallback: true

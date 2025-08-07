@@ -3,11 +3,11 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-  base: '/HEEO-presentation/',
+  base: '/', // Устанавливаю базовый путь для локальной разработки
   build: {
     outDir: 'dist'
   },
   server: {
-    port: 3002
+    port: 3001
   }
 });

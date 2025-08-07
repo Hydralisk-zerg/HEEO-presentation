@@ -14,10 +14,11 @@ function App() {
     if (savedLanguage && savedLanguage !== 'ru' && translations[savedLanguage]) {
       setLanguage(savedLanguage);
     } else {
-      // Если сохранен русский язык или нет сохраненного языка, устанавливаем украинский
       setLanguage('uk');
       localStorage.setItem('selectedLanguage', 'uk');
     }
+    // Всегда стартуем с главной страницы
+    setCurrentPage('start');
   }, []);
 
   const t = translations[language];
@@ -27,25 +28,15 @@ function App() {
     localStorage.setItem('selectedLanguage', lang);
   };
 
-  const handlePresentationStart = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setCurrentPage('presentation');
-      setLoading(false);
-    }, 500);
-  };
 
-  const handleVoiceAssistantStart = () => {
-    // Сразу переходим к Telegram боту @Iris_log_bot
-    window.open('https://t.me/Iris_log_bot', '_blank');
+  const handlePresentationStart = () => {
+    setCurrentPage('presentation');
+    localStorage.setItem('currentPage', 'presentation');
   };
 
   const handleBackToStart = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setCurrentPage('start');
-      setLoading(false);
-    }, 300);
+    setCurrentPage('start');
+    localStorage.setItem('currentPage', 'start');
   };
 
   const theme = {
@@ -76,7 +67,6 @@ function App() {
           <StartPage 
             onLanguageSelect={handleLanguageSelect}
             onPresentationStart={handlePresentationStart}
-            onVoiceAssistantStart={handleVoiceAssistantStart}
             t={t}
           />
         );
@@ -93,7 +83,6 @@ function App() {
           <StartPage 
             onLanguageSelect={handleLanguageSelect}
             onPresentationStart={handlePresentationStart}
-            onVoiceAssistantStart={handleVoiceAssistantStart}
             t={t}
           />
         );

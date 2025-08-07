@@ -44,6 +44,16 @@ export const translations = {
     presentationFullDescription: 'Перегляд інтерактивної презентації з 19 слайдами',
     voiceDescription: 'Iris Log Bot',
     voiceFullDescription: 'Перейти до AI помічника в Telegram - @Iris_log_bot',
+    testButton: 'Тест кнопка',
+    testPage: 'Тестова сторінка',
+    carouselTitle: 'Карусель з картками',
+    carouselDescription: 'Використовуйте стрілки або точки для навігації по картках',
+    testCard1Title: 'Картка 1',
+    testCard1Description: 'Опис першої картки з цікавим контентом',
+    testCard2Title: 'Картка 2', 
+    testCard2Description: 'Опис другої картки з корисною інформацією',
+    testCard3Title: 'Картка 3',
+    testCard3Description: 'Опис третьої картки з важливими деталями',
     languages: {
       uk: 'Українська',
       en: 'English'
@@ -94,6 +104,16 @@ export const translations = {
     presentationFullDescription: 'View interactive presentation with 19 slides',
     voiceDescription: 'Iris Log Bot',
     voiceFullDescription: 'Go to AI assistant in Telegram - @Iris_log_bot',
+    testButton: 'Test Button',
+    testPage: 'Test Page',
+    carouselTitle: 'Carousel with Cards',
+    carouselDescription: 'Use arrows or dots for navigation through cards',
+    testCard1Title: 'Card 1',
+    testCard1Description: 'Description of the first card with interesting content',
+    testCard2Title: 'Card 2',
+    testCard2Description: 'Description of the second card with useful information', 
+    testCard3Title: 'Card 3',
+    testCard3Description: 'Description of the third card with important details',
     languages: {
       uk: 'Українська',
       en: 'English'

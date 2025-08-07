@@ -4,7 +4,7 @@
   "description": "HEEO 2025 презентация на React с Ant Design",
   "homepage": "https://hydralisk-zerg.github.io/HEEO-presentation",
   "scripts": {
-    "start": "npx serve -s dist -l 3000",
+    "start": "webpack serve --mode development",
     "dev": "webpack serve --mode development",
     "build:local": "webpack --mode production",
     "build": "cross-env GITHUB_PAGES=true webpack --mode production",

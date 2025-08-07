@@ -6,10 +6,11 @@ import {
   RightOutlined
 } from '@ant-design/icons';
 import SlideTemplate from '../components/SlideTemplate';
-import { slideConfig, getLocalizedSlide } from '../config/slidesConfig';
+import { slideConfig, getLocalizedSlide, getStoredLanguage } from '../config/slidesConfig';
 
 const PresentationPage = ({ onBack, t }) => {
   const carouselRef = useRef(null);
+  const [currentLanguage, setCurrentLanguage] = useState(getStoredLanguage());
   
   // Отслеживание ориентации экрана
   const [isLandscapeMobile, setIsLandscapeMobile] = useState(() => {
@@ -63,8 +64,8 @@ const PresentationPage = ({ onBack, t }) => {
         shape="circle"
         style={{
           position: 'absolute',
-          top: isLandscapeMobile ? '-2px' : (window.innerWidth <= 1024 ? '5px' : '15px'),
-          left: isLandscapeMobile ? '-2px' : (window.innerWidth <= 1024 ? '5px' : '15px'),
+          top: isLandscapeMobile ? '-2px' : (window.innerWidth <= 1024 ? '0px' : '15px'),
+          left: isLandscapeMobile ? '-2px' : (window.innerWidth <= 1024 ? '0px' : '15px'),
           zIndex: 1000,
           width: '35px',
           height: '35px',
@@ -92,7 +93,7 @@ const PresentationPage = ({ onBack, t }) => {
         }}
       >
         {slideConfig.map(slide => {
-          const localizedSlide = getLocalizedSlide(slide, 'ru'); // можно передавать текущий язык
+          const localizedSlide = getLocalizedSlide(slide, currentLanguage); // используем текущий язык
           return (
             <div key={slide.id}>
               <SlideTemplate slide={localizedSlide} t={t} />
@@ -108,7 +109,9 @@ const PresentationPage = ({ onBack, t }) => {
         onClick={handlePrev}
         style={{
           position: 'absolute',
-          left: isLandscapeMobile ? '-5px' : (window.innerWidth <= 1024 ? '20px' : '15px'),
+          left: isLandscapeMobile ? '-5px' : 
+                (window.innerWidth <= 1024 && window.innerHeight > window.innerWidth) ? '-5px' : // портретный мобильный - прижать к краю
+                (window.innerWidth <= 1024 ? '20px' : '15px'),
           top: '50%',
           transform: 'translateY(-50%)',
           zIndex: 1000,
@@ -131,7 +134,9 @@ const PresentationPage = ({ onBack, t }) => {
         onClick={handleNext}
         style={{
           position: 'absolute',
-          right: isLandscapeMobile ? '-5px' : (window.innerWidth <= 1024 ? '20px' : '15px'),
+          right: isLandscapeMobile ? '-5px' : 
+                 (window.innerWidth <= 1024 && window.innerHeight > window.innerWidth) ? '-5px' : // портретный мобильный - прижать к краю
+                 (window.innerWidth <= 1024 ? '20px' : '45px'),
           top: '50%',
           transform: 'translateY(-50%)',
           zIndex: 1000,

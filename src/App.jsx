@@ -1,31 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { ConfigProvider, Spin } from 'antd';
 import { translations } from './utils/translations';
+import { getStoredLanguage, setStoredLanguage } from './config/slidesConfig';
 import StartPage from './pages/StartPage';
 import PresentationPage from './pages/PresentationPage';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('start');
-  const [language, setLanguage] = useState('uk');
+  const [language, setLanguage] = useState(getStoredLanguage());
   const [loading, setLoading] = useState(false);
   
   useEffect(() => {
-    const savedLanguage = localStorage.getItem('selectedLanguage');
-    if (savedLanguage && savedLanguage !== 'ru' && translations[savedLanguage]) {
-      setLanguage(savedLanguage);
-    } else {
-      setLanguage('uk');
-      localStorage.setItem('selectedLanguage', 'uk');
-    }
+    // Загружаем сохраненный язык при запуске
+    const savedLanguage = getStoredLanguage();
+    setLanguage(savedLanguage);
     // Всегда стартуем с главной страницы
     setCurrentPage('start');
   }, []);
 
-  const t = translations[language];
+  const t = translations[language] || translations['uk'];
 
   const handleLanguageSelect = (lang) => {
     setLanguage(lang);
-    localStorage.setItem('selectedLanguage', lang);
+    setStoredLanguage(lang);
   };
 
 

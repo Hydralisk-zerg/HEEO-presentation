@@ -136,11 +136,12 @@ all over the world`
 
       Dangerous goods
 
-We have 380 active partners with total fleet of 13 000 units`
+We have 380 active partners with total fleet 
+of 13 000 units`
     },
     image: {
-      uk: "/images/Our services – Road Freight.jpg",
-      en: "/images/Our services – Road Freight.jpg"
+      uk: "/images/автоперевозки.jpg",
+      en: "/images/автоперевозки.jpg"
     },
     textStyles: {
       // Стили для выделения чисел

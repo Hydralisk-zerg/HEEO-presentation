@@ -24,7 +24,8 @@ export const slideConfig = [
       en: "Our Network"
     },
     text: {
-      uk: `150  років досвіду та спеціальних регіональних знань
+      uk: `
+150  років досвіду та спеціальних регіональних знань
 
 64 789 відправлень на день
 
@@ -69,7 +70,7 @@ all over the world`
       en: ""
     },
     image: {
-      uk: "/images/our products.jpg",
+      uk: "/images/Наші продукти.jpg",
       en: "/images/our products.jpg"
     }
   },
@@ -113,8 +114,7 @@ all over the world`
       en: "Our services – Road Freight"
     },
     text: {
-      uk: `
-      Регулярні FTL перевезення
+      uk: `Регулярні FTL перевезення
 
       Перевезення контейнерів
 
@@ -123,8 +123,6 @@ all over the world`
       Негабаритні вантажі
 
       Небезпечні вантажі
-
-
 
       Маємо 380 активних партнерів із загальним 
       13 000 одиниць`,
@@ -175,8 +173,8 @@ We have 380 active partners with total fleet of 13 000 units`
     id: 8,
     type: 1, // Тип 1: Только заголовок + изображение
     title: {
-      uk: "Наші послуги – Перевантаження: контейнер – вантажівка/вантажівка – контейнер у європейських морських портах",
-      en: "Our services – transshipment: container – truck/truck – container in European seaports."
+      uk: "Перевантаження: контейнер – вантажівка/вантажівка – контейнер у європейських морських портах",
+      en: "Transshipment: container – truck/truck – container in European seaports."
     },
     text: {
       uk: "",
@@ -239,16 +237,128 @@ We have 380 active partners with total fleet of 13 000 units`
     id: 11,
     type: 1, // Тип 1: Только заголовок + изображение
     title: {
-      uk: "Наше портфоліо – Поставка на завод Interstarch – 2018",
-      en: "Our portfolio – Interstarch factory delivery - 2018"
+      uk: "Наше портфоліо – реалізація проектів завод Roshen – 2020, 2021",
+      en: "Our portfolio – project delivery – Roshen factory – 2020, 2021"
     },
     text: {
       uk: "",
       en: ""
     },
     image: {
-      uk: "/images/Our portfolio – Interstarch factory delivery - 2018.jpg",
-      en: "/images/Our portfolio – Interstarch factory delivery - 2018.jpg"
+      uk: "/images/Our portfolio – project delivery – Roshen factory – 2020, 2021.jpg",
+      en: "/images/Our portfolio – project delivery – Roshen factory – 2020, 2021.jpg"
+    }
+  },
+  {
+    id: 12,
+    type: 1, // Тип 1: Только заголовок + изображение
+    title: {
+      uk: "Наше портфоліо – Поставка на завод Interstarch – 2018",
+      en: "Our portfolio – Interstarch factory delivery  - 2018"
+    },
+    text: {
+      uk: "",
+      en: ""
+    },
+    image: {
+      uk: "/images/Our portfolio – Interstarch factory delivery  - 2018.jpg",
+      en: "/images/Our portfolio – Interstarch factory delivery  - 2018.jpg"
+    }
+  },
+  {
+    id: 13,
+    type: 1, // Тип 1: Только заголовок + изображение
+    title: {
+      uk: "Доставка вантажів з аукціонних будинків ЄС + Велика Британія та США 2022-2023",
+      en: "Cargo delivery from auction houses of EU + Great Britain and USA 2022-2023"
+    },
+    text: {
+      uk: "",
+      en: ""
+    },
+    image: {
+      uk: "/images/Cargo delivery from auction houses of EU + Great Britain and USA 2022-2023.jpg",
+      en: "/images/Cargo delivery from auction houses of EU + Great Britain and USA 2022-2023.jpg"
+    }
+  },
+  {
+    id: 14,
+    type: 1, // Тип 1: Только заголовок + изображение
+    title: {
+      uk: "Регулярні енергетичні проекти 2022-2025",
+      en: "Regular energy projects 2022-2025"
+    },
+    text: {
+      uk: "",
+      en: ""
+    },
+    image: {
+      uk: "/images/Regular energy projects 2022-2025.jpg",
+      en: "/images/Regular energy projects 2022-2025.jpg"
+    }
+  },
+ {
+    id: 15,
+    type: 1, // Тип 1: Только заголовок + изображение
+    title: {
+      uk: "Регулярні енергетичні проекти 2022-2025",
+      en: "Regular energy projects 2022-2025"
+    },
+    text: {
+      uk: "",
+      en: ""
+    },
+    image: {
+      uk: "/images/HEEO 2025 -17.jpg",
+      en: "/images/HEEO 2025 -17.jpg"
+    }
+  },
+  {
+    id: 16,
+    type: 1, // Тип 1: Только заголовок + изображение
+    title: {
+      uk: "Лідери галузі, які довіряють нам",
+      en: "Industry leaders who place their trust in us"
+    },
+    text: {
+      uk: "",
+      en: ""
+    },
+    image: {
+      uk: "/images/Industry leaders who place their trust in us.jpg",
+      en: "/images/Industry leaders who place their trust in us.jpg"
+    }
+  },
+  {
+    id: 17,
+    type: 1, // Тип 1: Только заголовок + изображение
+    title: {
+      uk: "Лідери галузі, які довіряють нам",
+      en: "Industry leaders who place their trust in us"
+    },
+    text: {
+      uk: "",
+      en: ""
+    },
+    image: {
+      uk: "/images/Industry leaders who place their trust in us 2.jpg",
+      en: "/images/Industry leaders who place their trust in us 2.jpg"
+    }
+  },
+  {
+    id: 18,
+    type: 1, // Тип 1: Только заголовок + изображение
+    title: {
+      uk: "",
+      en: ""
+    },
+    text: {
+      uk: "",
+      en: ""
+    },
+    image: {
+      uk: "/images/HEEO UKR-1-20_page-0020.jpg",
+      en: "/images/HEEO 2025 -20.jpg"
     }
   },
   // Пример слайда только для английского:

@@ -157,7 +157,7 @@ const SlideTemplate = ({ slide, t }) => {
           <div style={{
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center',
+            alignItems: (isMobile && isPortrait) ? 'flex-start' : 'center',
             justifyContent: 'center',
             height: '100%',
             paddingLeft: window.innerWidth <= 1024 ? '5px' : '20px',
@@ -179,6 +179,8 @@ const SlideTemplate = ({ slide, t }) => {
               borderRadius: window.innerWidth <= 1024 ? '8px' : '12px',
               position: 'relative',
               background: '#fff',
+              // Только для type 1 в портретной мобильной ориентации — увеличенный отступ снизу
+              ...(isMobile && isPortrait && slide.type === 1 ? { marginBottom: '250px' } : {}),
             }}>
               {slide.image?.endsWith('.pdf') ? (
                 <iframe
@@ -278,6 +280,8 @@ const SlideTemplate = ({ slide, t }) => {
                 background: '#fff',
                 boxSizing: 'border-box',
                 padding: 0,
+                // Только для type 2 в портретной мобильной ориентации — отступ сверху 20px
+                ...(window.innerWidth <= 1024 && window.innerHeight > window.innerWidth && slide.type === 2 ? { marginTop: '20px' } : {}),
               }}
             >
               {slide.image?.endsWith('.pdf') ? (
@@ -571,14 +575,16 @@ const SlideTemplate = ({ slide, t }) => {
         style={{
           position: 'absolute',
           top: isMobile ? (isPortrait ? '42px' : '2px') : '30px',
-          left: isMobile ? '2px' : 'calc(30px + 10px)', // увеличиваем отступ слева на десктопе
-          right: isMobile ? '75px' : 'calc(510px + 10px)', // увеличиваем отступ справа на десктопе
+          left: (!isMobile && slide.type === 1 && !isPortrait) ? '85px' : (isMobile && !isPortrait && slide.type === 1 ? '40px' : (isMobile ? '2px' : '65px')),
+          right: (!isMobile && slide.type === 1 && !isPortrait) ? '510px' : (isMobile && !isPortrait && slide.type === 1 ? '40px' : (isMobile ? '2px' : '65px')),
           zIndex: 101,
-          width: isMobile ? 'auto' : 'calc(100% - 540px)', // ширина с учетом логотипа и отступов
+          maxWidth: (!isMobile && slide.type === 1 && !isPortrait) ? 'calc(100vw - 595px)' : (isMobile && !isPortrait && slide.type === 1 ? 'calc(100vw - 80px)' : 'none'),
+          width: isMobile ? 'auto' : 'auto',
+          minWidth: (!isMobile && slide.type === 1 && !isPortrait) ? '200px' : (isMobile && !isPortrait && slide.type === 1 ? '120px' : 'auto'),
           display: 'flex',
-          justifyContent: isMobile ? 'center' : 'center',
+          justifyContent: 'center',
           alignItems: 'center',
-          pointerEvents: 'none', // чтобы не мешать кликам
+          pointerEvents: 'none',
         }}
       >
         <Title
@@ -592,13 +598,16 @@ const SlideTemplate = ({ slide, t }) => {
             lineHeight: (isMobile && isPortrait) ? '1.4' : (isMobile ? '1.2' : '1.4'),
             wordBreak: 'break-word',
             whiteSpace: 'pre-line',
-            paddingLeft: isMobile ? 0 : 10,
-            paddingRight: isMobile ? 0 : 10,
-            maxWidth: isMobile ? '100%' : '100%',
+            paddingLeft: (!isMobile && slide.type === 1 && !isPortrait) ? 10 : (isMobile && !isPortrait && slide.type === 1 ? 10 : (isMobile ? 0 : 10)),
+            paddingRight: (!isMobile && slide.type === 1 && !isPortrait) ? 10 : (isMobile && !isPortrait && slide.type === 1 ? 10 : (isMobile ? 0 : 10)),
+            maxWidth: (!isMobile && slide.type === 1 && !isPortrait) ? '100%' : (isMobile && !isPortrait && slide.type === 1 ? '100%' : '100%'),
+            minWidth: (!isMobile && slide.type === 1 && !isPortrait) ? '200px' : (isMobile && !isPortrait && slide.type === 1 ? '120px' : 'auto'),
             overflowWrap: 'break-word',
-            // Для шаблонов 1,2,3 на десктопе — центрируем
-            ...(window.innerWidth > 1024 && [1,2,3].includes(slide.type)
-              ? { textAlign: 'center', justifyContent: 'center', alignItems: 'center', display: 'flex', width: '100%' }
+            ...(window.innerWidth > 1024 && slide.type === 1 && !isPortrait
+              ? { textAlign: 'center', justifyContent: 'center', alignItems: 'center', display: 'flex', width: '100%', wordBreak: 'break-word', overflowWrap: 'break-word' }
+              : {}),
+            ...(isMobile && !isPortrait && slide.type === 1
+              ? { textAlign: 'center', justifyContent: 'center', alignItems: 'center', display: 'flex', width: '100%', wordBreak: 'break-word', overflowWrap: 'break-word' }
               : {})
           }}
         >
@@ -609,7 +618,13 @@ const SlideTemplate = ({ slide, t }) => {
       {/* Основной контент */}
       <div style={{ 
         flex: 1,
-        paddingTop: (isMobile && isPortrait) ? '120px' : (isMobile && !isPortrait ? '17px' : '130px'), // увеличен с 70px до 85px для добавления 15px отступа между заголовком и картинкой в портретном режиме
+        paddingTop: (() => {
+          // Только для type 1 (шаблон 1) в портретной мобильной ориентации делаем 20px, иначе 40px
+          if (isMobile && isPortrait && slide.type === 1) return '20px';
+          if (isMobile && isPortrait) return '40px';
+          if (isMobile && !isPortrait) return '17px';
+          return '130px';
+        })(),
         paddingBottom: isMobile ? '8px' : '70px'
       }}>
         {getSlideContent()}

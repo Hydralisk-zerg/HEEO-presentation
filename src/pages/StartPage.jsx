@@ -132,7 +132,7 @@ const StartPage = ({ onLanguageSelect, onPresentationStart, t, currentLanguage }
             flexDirection: isMobile ? 'column' : 'row'
           }}>
             <img 
-              src="/images/a47f8-90.png"
+              src="/images/круглый лого.jpg"
               alt="Hellmann Logo" 
               style={{
                 background: 'transparent',

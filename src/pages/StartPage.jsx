@@ -132,7 +132,7 @@ const StartPage = ({ onLanguageSelect, onPresentationStart, t, currentLanguage }
             flexDirection: isMobile ? 'column' : 'row'
           }}>
             <img 
-              src={`${process.env.NODE_ENV === 'production' && process.env.GITHUB_PAGES ? '/HEEO-presentation' : ''}/images/a47f8-90.png`}
+              src="/images/a47f8-90.png"
               alt="Hellmann Logo" 
               style={{
                 background: 'transparent',

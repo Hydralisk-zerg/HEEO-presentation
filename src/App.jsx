@@ -65,6 +65,7 @@ function App() {
             onLanguageSelect={handleLanguageSelect}
             onPresentationStart={handlePresentationStart}
             t={t}
+            currentLanguage={language}
           />
         );
       case 'presentation':

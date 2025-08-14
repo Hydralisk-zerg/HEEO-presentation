@@ -548,23 +548,24 @@ const SlideTemplate = ({ slide, t }) => {
     }}>
       {/* Большой логотип компании */}
       <div style={{
-      position: 'absolute',
-      top: isMobile ? '-2px' : '-25px',
-      right: isMobile ? '2px' : '30px',
-      zIndex: 100
-    }}>
+        position: 'absolute',
+        top: isMobile ? '-2px' : '-10px',
+        right: isMobile ? '2px' : '40px',
+        zIndex: 100
+      }}>
         <Image
-          src="/images/Logo_Hellmann_Worldwide_Logistics.png"
+          src="images/Logo_Hellmann_Worldwide_Logistics.png"
           alt="Hellmann Worldwide Logistics"
           style={{ 
-            width: isMobile ? '70px' : '460px',
-            height: isMobile ? '32px' : '230px',
+            width: isMobile ? '70px' : '320px',
+            height: isMobile ? '32px' : '160px',
             objectFit: 'contain',
             background: 'transparent',
             padding: '0',
             border: 'none',
             borderRadius: '0',
-            boxShadow: 'none'
+            boxShadow: 'none',
+            marginTop: isMobile ? undefined : '0', // Прижат к самому верху для desktop
           }}
           preview={false}
         />
@@ -619,6 +620,8 @@ const SlideTemplate = ({ slide, t }) => {
       <div style={{ 
         flex: 1,
         paddingTop: (() => {
+          // Для type 2 (шаблон 2) на desktop — учесть высоту логотипа и заголовка
+          if (!isMobile && slide.type === 2) return '120px';
           // Только для type 1 (шаблон 1) в портретной мобильной ориентации делаем 20px, иначе 40px
           if (isMobile && isPortrait && slide.type === 1) return '20px';
           if (isMobile && isPortrait) return '40px';
@@ -643,7 +646,7 @@ const SlideTemplate = ({ slide, t }) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'flex-end',
-        padding: isMobile ? '0 6px' : '0 30px'
+        padding: isMobile ? '0 6px' : '0 40px'
       }}>
         <Paragraph style={{ 
           color: '#fff', 
